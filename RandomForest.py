@@ -5,6 +5,12 @@ class RandomForest:
     def __init__(self):
         self.trees = list()
     
+    # Zwraca losowy podzbiór danych
+    # Umożliwia to stworzenie losowych, niezależnych
+    # drzewek decyzyjnych używając tego samego zbioru danych
+    # Argumenty:
+    # dataset - pełny zbiór danych
+    # minSimpleSize - minimalna ilość danych w podzbiorze
     def subsample(self, dataset, minSampleSize):
         sample = list()
         while len(sample) < minSampleSize:
@@ -12,6 +18,13 @@ class RandomForest:
             sample.append(dataset[index])
         return sample
 
+    # Tworzy las losowy na podstawie danych wejściowych
+    # Argumenty:
+    # dataset - pełny zbiór danych
+    # samplesSize - rozmiar podzbiorów
+    # treeCount - ilość drzewek do stworzenia
+    # max_depth - maksymalna głebia drzewka
+    # minimalny rozmiar drzewka
     def fit(self, dataset, samplesSize, treeCount, max_depth=5, min_size=5):
         for treeIndex in range(treeCount):
             sample = self.subsample(dataset, samplesSize)
@@ -19,8 +32,8 @@ class RandomForest:
             tree.fit(sample, max_depth, min_size)
             self.trees.append(tree)
     
-
-    
+    # Przewiduje wynik na wszystkich drzewkach i zwraca najczęściej występujący wynik
+    # test - dane do przetestowania
     def predict(self, test):
         sum_prediction = list()
         for tree in self.trees:

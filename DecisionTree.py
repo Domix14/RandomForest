@@ -5,7 +5,7 @@ class DecisionTree:
     def __init__(self):
         seed(1)
     
-    # Split a dataset based on an attribute and an attribute value
+    # Rodziela dane na podstawie atrybutów
     def test_split(self, index, value, dataset):
         left, right = list(), list()
         for row in dataset:
